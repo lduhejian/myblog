@@ -16,8 +16,8 @@ paginate        = 6
   customCSS = []
   RSSLink = ""
 
-  twitterName = "faketryghost"
-  fbName = "fakeghost"
+  #twitterName = "faketryghost"
+  #fbName = "fakeghost"
   githubName = "lduhejian"
 
   logo = ""
