@@ -1,0 +1,9 @@
+<meta name="description" content="{{ .Description }}"/>
+<meta property="og:title" content="{{ .Title }}"/>
+<meta property="og:description" content="{{ .Description }}"/>
+
+{{ with .Params.Images }}
+      {{ range first 1 . }}
+            <meta property="og:image" content="{{ . | absURL }}" />
+      {{ end }}
+{{ end }}

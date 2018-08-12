@@ -1,0 +1,63 @@
+baseURL = "https://www.hejian.ink/"
+languageCode = "en-us"
+title = "全部"
+theme = "minimal"
+disqusShortname = "hejian" # delete this to disable disqus comments
+googleAnalytics = "UA-112161472-1"
+enableEmoji = true
+
+[params]
+    author = "hejian"
+    description = "个人博客"
+    githubUsername = "lduhejian"
+    accent = "#409EFF"
+    showBorder = true
+    backgroundColor = "white"
+    font = "Source Sans Pro"
+    highlight = true
+    highlightStyle = "solarized-dark"
+    highlightLanguages = ["go", "haskell", "kotlin", "scala", "swift"]
+
+#[[menu.main]]
+#    url = "/"
+#    name = "Home"
+#    weight = 1
+
+[[menu.main]]
+    url = "/"
+    name = "列表"
+    weight = 2
+
+#[[menu.main]]
+#    url = "/project/"
+#    name = "Projects"
+#    weight = 3
+
+# Social icons to be shown on the right-hand side of the navigation bar
+# The "name" field should match the name of the icon to be used
+# The list of available icons can be found at http://fontawesome.io/icons/
+
+[[menu.icon]]
+    url = "mailto:1217036457@qq.com"
+    name = "envelope-o"
+    weight = 1
+
+[[menu.icon]]
+    url = "https://github.com/lduhejian"
+    name = "github"
+    weight = 2
+
+#[[menu.icon]]
+#    url = "https://twitter.com/username/"
+#    name = "twitter"
+#    weight = 3
+
+#[[menu.icon]]
+#    url = "https://www.linkedin.com/in/username/"
+#    name = "linkedin"
+#    weight = 4
+
+#[[menu.icon]]
+#    url = "https://www.stackoverflow.com/username/"
+#    name = "stack-overflow"
+#    weight = 5
