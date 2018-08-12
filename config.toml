@@ -1,6 +1,6 @@
 baseURL = "https://www.hejian.ink/"
 languageCode = "en-us"
-title = "Minimal"
+title = "hejian"
 theme = "minimal"
 disqusShortname = "username" # delete this to disable disqus comments
 googleAnalytics = ""
@@ -42,8 +42,8 @@ googleAnalytics = ""
     weight = 1
 
 [[menu.icon]]
-    url = "https://github.com/username/"
-    name = "lduhejian"
+    url = "https://github.com/lduhejian"
+    name = "github"
     weight = 2
 
 #[[menu.icon]]
