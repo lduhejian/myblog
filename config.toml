@@ -26,7 +26,7 @@ paginate        = 6
   orgDescription = "Here is a description placeholder for your org"
 
   author = "何健"
-  authorAvatar = "img/ghost-icon.png"
+  authorAvatar = "uploads/head_image.jpeg"
   authorLocation = "北京"
   authorWebsite = "https://eueung.github.io"
   authorDescription = "coder developer"
