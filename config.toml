@@ -29,7 +29,7 @@ paginate        = 6
   authorAvatar = "uploads/head_image.jpeg"
   authorLocation = "北京"
   authorWebsite = "https://eueung.github.io"
-  authorDescription = "coder developer"
+  authorDescription = "程序员"
 
   pageNotFoundTitle = "404 - Page not found"
 
