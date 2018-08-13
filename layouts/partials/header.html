@@ -26,6 +26,16 @@
         </script>
         {{ end }}
         <link rel="shortcut icon" type="image/png" href="/uploads/rocket.ico"/>
+        <!-- 百度统计 -->
+        <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?39361df54762abdc0517f593e73360cd";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      </script>
     </head>
 
     {{ if .Site.Params.MathJax | default true }}
