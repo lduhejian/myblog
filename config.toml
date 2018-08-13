@@ -2,7 +2,7 @@ baseURL = "https://www.hejian.ink/"
 languageCode = "en-us"
 title = "Posts"
 theme = "minimal"
-disqusShortname = "何健" # delete this to disable disqus comments
+disqusShortname = "hejian183" # delete this to disable disqus comments
 googleAnalytics = ""
 
 [params]
