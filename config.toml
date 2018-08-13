@@ -3,7 +3,7 @@ languageCode = "en-us"
 title = "Posts"
 theme = "minimal"
 disqusShortname = "hejian" # delete this to disable disqus comments
-googleAnalytics = ""
+googleAnalytics = "112161472"
 
 [params]
     author = "hejian"
