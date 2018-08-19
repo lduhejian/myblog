@@ -2,7 +2,7 @@
 title: "hashtable 的基本结构"
 date: 2018-08-13
 tags: [php5, internal]
-draft: false
+draft: true
 ---
 #### 基础概念
 
@@ -94,3 +94,5 @@ nTableSize - 1 我们叫做 table mask，他储存在 nTableMask 中。用“二
 persistent 表示是否 buckets（和他们的值）应该一直不被回收。在大多数的情况下这个值应该是 0, 因为 hashtable 应该在请求完成之后销毁。bApplyProtection 指定 hashtable 是否需要嵌套保护（默认为1）。如果嵌套层数（nApplyCount）达到了某个 数值, 嵌套保护将会抛出一个错误。这种保护应用在 hashtable 对比和 zend_hash_apply 函数中。
 
 最后一个属性 inconsistent 用作 debug 编译和在当前 hashtable 状态下存储信息。当 hashtable 被不正确的使用，他被用作抛出错误，例如，你访问一个在销毁过程中的 hashtable 时，他就会派上用场。
+
+[英文原文](http://www.phpinternalsbook.com/hashtables/basic_structure.html)
