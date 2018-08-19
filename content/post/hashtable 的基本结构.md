@@ -2,7 +2,7 @@
 title: "hashtable 的基本结构"
 date: 2018-08-13
 tags: [php5, internal]
-draft: true
+draft: false
 ---
 #### 基础概念
 
@@ -48,11 +48,9 @@ typedef struct bucket {
 
 h 是 bucket 对应的 hash 值. 如果 key 是整数，h 就等于 key, nKeyLength 将会赋值为 0。如果 key 是字符串，h 是 对字符串做 zend_hash_func() 的结果, arKey 会指向该字符串, nKeyLength 是字符串的长度。
 
-//TODO
+pData 是指向储存值的指针。存储的值和通过插入函数传入的值不是一个，他是传入值的复制（没有存储在 bucket 中）。当存储的值是一个指针类型的话，pData 直接指向存储值的指针是非常没有效率的（指针指向另一个不在 bucket 中的指针），php 使用一个小技巧来提高效率：与其让 pData 指向 bucket 数据块外的指针，不如将指针放到 bucket 中，使用 pDataPtr 直接指向数据，让后 pData 指向 bucket 中的 pDataPtr。
 
-pData 是指向储存值的指针。存储的值和通过插入函数传入的值不是一个，他是传入值的 copy（没有存储在 bucket 中）。因为以指针的方式指向存储数据是非常没有效率的，php 使用了一个小的技巧来改善：...
-
-现在让我们来看一下最主要的 HashTable 结构:
+现在让我们来看一下重要的 HashTable 结构:
 ```
 typedef struct _hashtable {
     uint nTableSize;
@@ -72,28 +70,27 @@ typedef struct _hashtable {
 #endif
 } HashTable;
 ```
+你已经知道 arrBuckets 是一个 c 数组，数组的每一个元素对应这一条链表，数组的索引对应着 php 数组键值的 hash。因为 php 的数组没有固定的大小，所以当元素的数量超过 arrBuckets 分配（内存）数量的时候, arBuckets 也必须增加内存分配。我们当然可以在 hashtable 中存储超过 nTableSize 的元素，但是随着插入元素的增多，也将会增大 hash 冲突的可能性，降低数组的性能表现。
 
-你已经知道 arrBuckets 是一个 c 数组，他包含了许多链表并且他里面装的是 key 的 hash 值。因为 php 的数组没有固定的大小，所以当元素的数量超过 arrBuckets 分配（内存）数量的时候, arBuckets  也必须增加内存分配。我们当然可以在 hashtable 中存储超过 nTableSize 的元素，但是这将会增大 hash 冲突的数量，降低数组的性能表现。
+nTableSize 总是 2 的幂次方，因此如果你的 hashtable 中有 12 个元素，nTableSize 的值将会是 16。注意虽然 arBuckets 会随着元素的增多自动增长，但是当你移除元素的时候，他并不会减少。如果你在 hashtable 中增加 1000000 个元素，接着再将它们移除，nTableSize 的值仍将会是 1048576.
 
-nTableSize 总是 2 的幂次方，因此如果你的 hashtable 中有 12 个元素，nTableSize 的值将会是 16.注意 arBuckets 会随着元素的增多自动增长，但是当你移除元素的时候，他并不会减少。如果你在 hashtable 中增加 1000000 个元素，接着再将它们移除，nTableSize 的值仍将会是 1048576.
-
-hash 函数的计算结果是 ulong 类型，但是 nTableSize 通常会比这个值小一点。因此 hash 值不能直接用作 arBuckets 的 index。真正采用的是 nIndex = h % nTableSize，因为 nTableSize 总是 2 的次方，所以这个表达式等价于 nIndex = h & (nTableSize -1)。为了分析原因，让我们先看 nTableSize - 1：
+hash 函数的计算结果是 ulong 类型，但是 nTableSize 通常会比这个值小一点。因此 hash 值不能直接用作 arBuckets 的索引。真正采用的索引是 nIndex = h % nTableSize，因为 nTableSize 总是 2 的次方，所以这个表达式等价于 nIndex = h & (nTableSize -1)。为了分析原因，让我们先看 nTableSize - 1：
 
 ```
 nTableSize     = 128 = 0b00000000.00000000.00000000.10000000
 nTableSize - 1 = 127 = 0b00000000.00000000.00000000.01111111
 ```
 
-nTable - 1 使得小于 nTableSize 的 bit 上都是 1 (如上图 小于 128 的二进制位都是 1)。因此 h & (nTableSize -  1) 的结果只会保留小于 nTableSize 的部分，这和 h % nTableSize 做的同样的事情。
+nTableSize - 1 使得小于 nTableSize 的 bit 上都是 1 (如上图小于 128 的二进制位都是 1)。因此 h & (nTableSize -  1) 的结果只会保留小于 nTableSize 的部分，这和 h % nTableSize 做的同样的事情。
 
-nTable - 1 我们叫做 table mask，他储存在 nTableMask 中。用 masking opration 代替取余仅仅是一个性能优化。
+nTableSize - 1 我们叫做 table mask，他储存在 nTableMask 中。用“二进制与操作”代替“取余”是为了提高性能。
 
-当执行 $array[] = $value 时，nNextFreeElement 指定这个值将被插入的 index。nNextFreeElement 将会比 hashtable 中当前最大的整数 key 大 1。
+当执行 $array[] = $value 时，nNextFreeElement 指定这个值将被插入 arrBuckets 的索引。nNextFreeElement 将会等于 arrBuckets 的长度。
 
-你已经知道了 pListHead 和 pListTail 指针（他们是双向链表的头和尾）。 pInternalPointer 用作 interation，指向当前的 bucket。
+你已经知道了 pListHead 和 pListTail 指针（他们是双向链表的头和尾）。 pInternalPointer 用作遍历数组，指向当前的 bucket。
 
-当删除 hashtable 中的一个元素的时候，可以设置一个回调函数，这个回调函数存储在 pDestructor。例如，如果你在向 hashtable 存储 zval * 的元素，你可能想在他删除的时候 zval_ptr_dtor 可以被调用。
+当删除 hashtable 中的一个元素的时候，可以设置一个回调函数，这个回调函数存储在 pDestructor。例如，如果你在向 hashtable 存储 zval * 的元素，在你删除他的时候，zval_ptr_dtor 会被调用。
 
-persistent flag 表示是否 buckets（和他们的值）应该一直不被回收。在大多数的情况下这个值应该是 0, 因为 hashtable 应该在 request 完成之后销毁。bApplyProtection falg 指定 hashtable 是否应该嵌套保护（默认为1）。如果嵌套层数（nApplyCount）达到了某个 level, 嵌套保护将会 throw an error。这种保护用作 hashtable 对比和 zend_hash_apply 函数。
+persistent 表示是否 buckets（和他们的值）应该一直不被回收。在大多数的情况下这个值应该是 0, 因为 hashtable 应该在请求完成之后销毁。bApplyProtection 指定 hashtable 是否需要嵌套保护（默认为1）。如果嵌套层数（nApplyCount）达到了某个 数值, 嵌套保护将会抛出一个错误。这种保护应用在 hashtable 对比和 zend_hash_apply 函数中。
 
-最后一个成员 inconsistent 仅仅用作 debug builds 和在当前 hashtable 状态下存储信息。他会 throw errors 当 hashtable 被不正确的使用，例如，你访问一个在销毁过程中的 hashtable。
+最后一个属性 inconsistent 用作 debug 编译和在当前 hashtable 状态下存储信息。当 hashtable 被不正确的使用，他被用作抛出错误，例如，你访问一个在销毁过程中的 hashtable 时，他就会派上用场。
