@@ -1,7 +1,7 @@
 ---
 title: "hashtable 的基本结构"
 date: 2018-08-13
-tags: [php5， internal]
+tags: [php5, internal]
 draft: false
 ---
 #### 基础概念
