@@ -35,7 +35,7 @@ model 的属性名通过下面这个关系映射出 mutator，例如：product_n
 'set'.Str::studly($attribute_name).'Attribute'
 ```
 
-哈哈，从此再也不怕写错 mutator 了!
+哈哈，从此再也不怕写错 mutator 了 :stuck_out_tongue_winking_eye:
 
 #### camel 函数
 

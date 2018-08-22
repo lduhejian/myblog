@@ -4,6 +4,7 @@ title = "Posts"
 theme = "minimal"
 disqusShortname = "hejian" # delete this to disable disqus comments
 googleAnalytics = "UA-112161472-1"
+enableEmoji = true
 
 [params]
     author = "hejian"
