@@ -2,6 +2,7 @@
 title: "Studly Words in Laravel"
 date: 2018-08-22T15:24:13+08:00
 draft: false
+tags: [laravel]
 ---
 #### studly 函数
 
