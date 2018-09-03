@@ -1,8 +1,8 @@
 ---
-title: "migrate 的背后"
+title: "laravel migrate"
 date: 2018-08-30
 tags: [laravel, migration]
-draft: true
+draft: false
 ---
 ```
 /**
