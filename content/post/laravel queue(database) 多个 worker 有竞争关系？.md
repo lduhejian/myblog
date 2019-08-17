@@ -46,7 +46,7 @@ protected function getNextAvailableJob($queue)
 
 * 谷歌中的大神是这么说的
 
-<img src="/uploads/laravel%20queue(database)%20多个%20worker%20有竞争关系%3F/lockForUpdate引用.png" width="800px"/>
+<img src="/uploads/laravel%20queue(database)%20多个%20worker%20有竞争关系？/lockForUpdate引用.png" width="800px"/>
 
 **结论A：**
 
