@@ -3,6 +3,7 @@ title: "postgres 突然很慢"
 date: 2019-10-07
 draft: false
 tags: [postgres]
+description: "postgres 突然很慢 slow postgresql pg_dump pg_stat_activity"
 ---
 今天使用 pg_dump 导数据的时候，很长时间都不能导出，明显不正常...  
 看了一下线上程序...  
