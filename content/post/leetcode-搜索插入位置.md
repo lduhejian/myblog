@@ -14,7 +14,7 @@ int searchInsert(int* nums, int numsSize, int target){
     if (target > nums[numsSize - 1]) return numsSize;
 	if (target == nums[numsSize - 1]) return numsSize - 1;
     if (target <= nums[0]) return 0;
-    while (rangeL <= rangeR)
+    while (1)
     {
 		if (rangeR == rangeL + 1) return rangeR;
         int middle = rangeL + (rangeR - rangeL) / 2;
@@ -25,3 +25,17 @@ int searchInsert(int* nums, int numsSize, int target){
     return -1;
 }
 ```
+google 后看到了一种 O(n) 的容易理解的编码方式：
+```
+int searchInsert(int* nums, int numsSize, int target)
+{
+	for (int i = 0; i < numsSize; i ++)
+	{
+		if (nums[i] >= target) return i;
+	}
+	return numsSize;
+}
+```
+
+参考：  
+[leetcode 35. Search Insert Position搜索插入位置(二分查找)](https://blog.csdn.net/Shauna_Wu/article/details/78735968)  
