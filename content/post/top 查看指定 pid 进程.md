@@ -2,7 +2,8 @@
 title: "top 查看指定 pid 进程"
 date: 2019-05-23
 draft: false
-tags: [top, pid]
+tags: [linux]
+description: "linux top 查看指定 pid 进程 ps aux"
 ---
 1. 通过关键字找到进程的 pid
 ```
