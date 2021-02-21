@@ -18,3 +18,6 @@ port 是 shadowsocks 客户端 HTTP 代理监听端口
 curl cip.cc
 ```
 如果返回 ip 地址等于代理服务器的 ip 地址则设置成功
+
+参考：  
+[Linux 让终端走代理的几种方法](https://zhuanlan.zhihu.com/p/46973701)
