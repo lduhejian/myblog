@@ -3,7 +3,7 @@ title: "剑指 Offer - 数组中重复的数字"
 date: 2021-03-25
 draft: false
 tags: [golang, 数据结构]
-description: "golang, 数据结构"
+description: "golang, 数据结构, 剑指 Offer - 数组中重复的数字"
 ---
 ```
 package main
