@@ -10,7 +10,7 @@ description: "ubuntu, 网络代理, shadowsocks export ALL_PROXY=socks5://"
 sudo echo "export ALL_PROXY=socks5://ip:port" >> /etc/bash.bashrc
 ```
 ip 是你 shadowsocks 客户端运行主机的 ip 地址  
-port 是 shadowsocks 客户端 HTTP 代理监听端口  
+port 是 shadowsocks 客户端本地 Socks5 监听端口  
 
 
 怎么知道是不是代理成功？
